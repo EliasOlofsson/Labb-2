@@ -3,6 +3,8 @@
 V_c = 1.6;
 Phi_m = 55;
 
+s = tf('s');
+
 [amp, fas] = bode(G, V_c);
 
 %Phi_max = Phi_m - (180 + arg(G(iw)));
@@ -22,7 +24,19 @@ F_lag_theo = (Tau_i * s + 1) / (Tau_i * s);
 
 F_total_theo = F_lead_theo * F_lag_theo;
 
-r = GetStep(1); 
+figure;
+margin(F_total_theo*G);
+
+
+figure;
+nyquist(F_total_theo*G)
+title("Nyquist for total");
+
+G_c = feedback(G*F_total_theo,1);
+margin(G_c);
+%%
+
+r = GetStep(1, 5, 120); 
 [y, t] = FeedbackControl(F_total_theo, r);
 figure;
 plot(t, y, t, r);
@@ -30,3 +44,4 @@ title('Stegsvar för det slutna systemet');
 xlabel('Tid (s)');
 ylabel('Utsignal');
 grid on;
+

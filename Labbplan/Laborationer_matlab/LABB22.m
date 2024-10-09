@@ -41,10 +41,10 @@ end
 
 
 %%
-phase2 = gain;
-gain2 = phase;
+phase2 = [-106	-122	-137	-142	-155	-172	-180	-180	-180.481705466209	-180];
+gain2 = [7.19728907897512	3.14739483748926	1.36675970027665	0.766444679734561	0.414217667551596	0.2	0.108035918727091	0.05	0.0393395921764459	0.0201683342409217];
 % Steg 2: Skapa en frekvensresponsmodell med frd
-w = frequencies; % Frekvenserna
+w = [0.2, 0.5, 1.0, 1.44, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0]; % Frekvenserna
 z = gain2 .* exp(1i .* phase2 * pi / 180); % Eulers formel för att skapa komplexa siffror
 G = frd(z, w); % Skapa frekvensresponsdata
 
